@@ -74,6 +74,13 @@ public class imdbTesting {
         // Assert
         Assert.assertEquals(expected,actual);
 
+        // Another check on if the first movie is Shawshank redemption
+        String actual1 = webDriver.findElement(By.xpath("/html/body/div[2]/main/div/div[3]/section/div/div[2]/div/ul/li[1]/div[2]/div/div/div[1]/a/h3")).getText();
+        String expected1 = "1. The Shawshank Redemption";
+
+        // Assert
+        Assert.assertEquals(expected1,actual1);
+
         webDriver.close();
     }
 }
