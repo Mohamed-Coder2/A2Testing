@@ -83,4 +83,48 @@ public class imdbTesting {
 
         webDriver.close();
     }
+    @Test
+    public void testAdvancedSearch() {
+        // If you want to test it yourself don't forget to change these hardcoded values
+        System.setProperty("webdriver.firefox.driver","E:\\Moo\\Chrome Downloads\\geckodriver-v0.34.0-win-aarch64\\geckodriver.exe");
+
+        // Initialize a Web Driver with your favourite browser (Chrome didn't work for me)
+        WebDriver webDriver = new FirefoxDriver();
+
+        // Navigate to a IMDB
+        webDriver.navigate().to("https://www.imdb.com");
+
+        // Click All
+        webDriver.findElement(By.xpath("/html/body/div[2]/nav/div[2]/div[1]/form/div[1]")).click();
+
+        // Click Advanced Search
+        webDriver.findElement(By.xpath("/html/body/div[2]/nav/div[2]/div[1]/form/div[1]/div/div/div/div/span/ul/a/span[1]")).click();
+
+        // Click Expand All
+        webDriver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[1]/div/button")).click();
+
+        // Click on Movie in Title Type
+        webDriver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[1]/section/div/div[2]/div[2]/div/section/button[1]")).click();
+
+        // enter date from 2010 to 2020
+        WebElement fromYear = webDriver.findElement(By.cssSelector(".sc-b63d290d-2 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)"));
+        fromYear.sendKeys("2010");
+
+        WebElement toYear = webDriver.findElement(By.cssSelector(".sc-b63d290d-2 > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)"));
+        toYear.sendKeys("2020");
+
+        // Choose Action
+        webDriver.findElement(By.cssSelector("#accordion-item-genreAccordion > div:nth-child(1) > section:nth-child(1) > button:nth-child(1)")).click();
+
+        // click search
+        webDriver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[1]/button")).click();
+
+        // first movie is War for the planet of the Apes
+        String actual = webDriver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[2]/ul/li[1]/div/div/div/div[1]/div[2]/div[1]/a/h3")).getText();
+        String expected = "1. War for the Planet of the Apes";
+
+        Assert.assertEquals(actual,expected);
+
+        webDriver.close();
+    }
 }
